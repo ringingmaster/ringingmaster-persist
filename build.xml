@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ringingmaster-method-extraction" basedir="." default="generate-all">
+<project name="ringingmaster-method-persist" basedir="." default="		path = path.toAbsolutePath().normalize();
+">
 
 	<!-- XJC binding --> 
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
@@ -11,7 +12,7 @@
 
 	<target name="generate-ringingmaster-xsd-model" description="Generate JAX-B model for the ringingmaster internal methods library">
 		<mkdir dir="src\generated\java"/>
-		<xjc schema="resources\ringingmaster.xsd" destdir="src\generated\java" package="com.concurrentperformance.ringingmaster.generated.persist">
+		<xjc schema="resources\ringingmaster.xsd" destdir="src\generated\java" package="com.concurrentperformance.ringingmaster.persist.generated.v1">
 			<arg value="-nv" />
 		</xjc>
 	</target> 

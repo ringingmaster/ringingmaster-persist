@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:complexType name="notation">
-    <xs:attribute name="version" type="xs:int" use="required"/>
+  <xs:complexType name="persistableNotation">
     <xs:attribute name="name" type="xs:string" use="required"/>
     <xs:attribute name="numberOfBells" type="xs:int" use="required"/>
     <xs:attribute name="notation" type="xs:string" use="required"/>
@@ -12,12 +11,16 @@
     <xs:attribute name="leadLength" type="xs:int" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="notationLibrary">
-
-    <xs:sequence>
-  	  <xs:element name="serializableNotation" type="notation" minOccurs="0" maxOccurs="unbounded"/>
-  	</xs:sequence>
-  </xs:complexType>
+  <xs:element name="persistableNotationLibrary" >
+    <xs:complexType >
+      <xs:sequence>
+        <xs:element name="notation" type="persistableNotation" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:long" use="required"/>
+      <xs:attribute name="libraryType" type="xs:string" use="required"/>
+      <xs:attribute name="notes" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
   
 </xs:schema>
 

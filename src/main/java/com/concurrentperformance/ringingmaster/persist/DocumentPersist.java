@@ -1,6 +1,7 @@
 package com.concurrentperformance.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.PersistableNotationLibrary;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibrary;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.Touch;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +32,12 @@ public class DocumentPersist {
 
 	public static final long NOTATION_LIBRARY_CURRENT_VERSION = 1;
 
-	public void writeNotationLibrary(final PersistableNotationLibrary persistableNotationLibrary, Path path, NotationLibraryType type) throws IOException, JAXBException {
-		checkNotNull(persistableNotationLibrary);
+	public void writeNotationLibrary(final NotationLibrary notationLibrary, Path path, NotationLibraryType type) throws IOException, JAXBException {
+		checkNotNull(notationLibrary);
 		checkNotNull(path);
 
-		checkAndSetVersion(persistableNotationLibrary);
-		checkAndSetLibraryType(persistableNotationLibrary, type);
+		checkAndSetVersion(notationLibrary);
+		checkAndSetLibraryType(notationLibrary, type);
 
 		path = path.toAbsolutePath().normalize();
 
@@ -50,7 +51,7 @@ public class DocumentPersist {
 			final Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
 
-			m.marshal(persistableNotationLibrary, outputStream);
+			m.marshal(notationLibrary, outputStream);
 
 			outputStream.flush();
 
@@ -67,26 +68,26 @@ public class DocumentPersist {
 		}
 	}
 
-	private void checkAndSetVersion(PersistableNotationLibrary persistableNotationLibrary) {
-		if (persistableNotationLibrary.getVersion() != NOTATION_LIBRARY_CURRENT_VERSION &&
-				persistableNotationLibrary.getVersion() != 0) {
-			log.warn("Forcing library version from [{}] to [{}]", persistableNotationLibrary.getVersion(), NOTATION_LIBRARY_CURRENT_VERSION);
+	private void checkAndSetVersion(NotationLibrary notationLibrary) {
+		if (notationLibrary.getVersion() != NOTATION_LIBRARY_CURRENT_VERSION &&
+				notationLibrary.getVersion() != 0) {
+			log.warn("Forcing library version from [{}] to [{}]", notationLibrary.getVersion(), NOTATION_LIBRARY_CURRENT_VERSION);
 		}
-		persistableNotationLibrary.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
+		notationLibrary.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
 	}
 
-	private void checkAndSetLibraryType(PersistableNotationLibrary persistableNotationLibrary, NotationLibraryType type) {
-		if (!Strings.isNullOrEmpty(persistableNotationLibrary.getLibraryType())) {
-			log.warn("Forcing library name from [{}] to [{}]", persistableNotationLibrary.getLibraryType(), type);
+	private void checkAndSetLibraryType(NotationLibrary notationLibrary, NotationLibraryType type) {
+		if (!Strings.isNullOrEmpty(notationLibrary.getLibraryType())) {
+			log.warn("Forcing library name from [{}] to [{}]", notationLibrary.getLibraryType(), type);
 		}
-		persistableNotationLibrary.setLibraryType(type.toString());
+		notationLibrary.setLibraryType(type.toString());
 	}
 
 
-	public PersistableNotationLibrary readNotationLibrary(Path path) {
+	public NotationLibrary readNotationLibrary(Path path) {
 		path = path.toAbsolutePath().normalize();
 
-		PersistableNotationLibrary notations = null;
+		NotationLibrary notations = null;
 
 		InputStream inputStream = null;
 		try {
@@ -95,7 +96,7 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
-			notations = (PersistableNotationLibrary) unmarshaller.unmarshal(inputStream);
+			notations = (NotationLibrary) unmarshaller.unmarshal(inputStream);
 
 		} catch (final IOException e) {
 			log.error("Exception deserializing notations", e);
@@ -111,5 +112,47 @@ public class DocumentPersist {
 		}
 
 		return notations;
+	}
+
+	public void writeTouch(Touch touch, Path path)  throws IOException, JAXBException {
+		checkNotNull(touch);
+		checkNotNull(path);
+
+		//TODO checkAndSetVersion(touch);
+		//TODO checkAndSetLibraryType(notationLibrary, type);
+
+		path = path.toAbsolutePath().normalize();
+
+		OutputStream outputStream = null;
+		try {
+			log.info("Writing the Notation library to [" + path + "]");
+
+			outputStream = Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING );
+
+			final JAXBContext jc = JAXBContext.newInstance(XML_BASE_PACKAGE);
+			final Marshaller m = jc.createMarshaller();
+			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
+
+			m.marshal(touch, outputStream);
+
+			outputStream.flush();
+
+			// Also to Std out for debug.
+			//m.marshal(notationLibrary, System.out);
+
+		}
+		finally {
+			try {
+				if (outputStream != null) {
+					outputStream.close();
+				}
+			} catch (final IOException e) {}
+		}
+
+	}
+
+	public Touch readTouch(Path path) {
+		return null;
+
 	}
 }

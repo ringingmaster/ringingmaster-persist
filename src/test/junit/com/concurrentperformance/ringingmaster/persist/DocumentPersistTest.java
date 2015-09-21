@@ -1,7 +1,8 @@
 package com.concurrentperformance.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.PersistableNotation;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.PersistableNotationLibrary;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.Notation;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibrary;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.Touch;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,26 +47,71 @@ public class DocumentPersistTest {
 	@Test
 	public void canSerialiseLibrary() throws IOException, JAXBException {
 
-		PersistableNotationLibrary persistableNotationLibrary = new PersistableNotationLibrary();
-		persistableNotationLibrary.setNotes("NOTES");
-		PersistableNotation persistableNotation = new PersistableNotation();
-		persistableNotation.setNumberOfBells(8);
-		persistableNotation.setNotation("12.34");
-		persistableNotation.setNotation2("-");
-		persistableNotation.setFoldedPalindrome(false);
-		persistableNotation.setName("TEST");
-		persistableNotation.setLeadLength(234);
-		persistableNotation.setLeadHead("AA");
-		persistableNotationLibrary.getNotation().add(persistableNotation);
+		NotationLibrary notationLibrary = new NotationLibrary();
+		notationLibrary.setNotes("NOTES");
+		Notation notation = new Notation();
+		notation.setNumberOfBells(8);
+		notation.setNotation("12.34");
+		notation.setNotation2("-");
+		notation.setFoldedPalindrome(false);
+		notation.setName("TEST");
+		notation.setLeadLength(234);
+		notation.setLeadHead("AA");
+		notationLibrary.getNotation().add(notation);
 
 
 		Path path = BASE_DIR.resolve("library.xml");
-		new DocumentPersist().writeNotationLibrary(persistableNotationLibrary, path, NotationLibraryType.CC_LIBRARY);
-		PersistableNotationLibrary result = new DocumentPersist().readNotationLibrary(path);
+		new DocumentPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryType.CC_LIBRARY);
+		NotationLibrary result = new DocumentPersist().readNotationLibrary(path);
 
 		assertEquals(1, result.getNotation().size());
 
-		PersistableNotation persistableNotationResult = result.getNotation().get(0);
+		Notation notationResult = result.getNotation().get(0);
+		assertEquals(8, notationResult.getNumberOfBells());
+		assertEquals("12.34", notationResult.getNotation());
+		assertEquals("-", notationResult.getNotation2());
+		assertEquals(false, notationResult.isFoldedPalindrome());
+		assertEquals("TEST", notationResult.getName());
+		assertEquals("AA", notationResult.getLeadHead());
+		assertEquals(234, notationResult.getLeadLength());
+
+	}
+
+	@Test
+	public void canSerialiseEmptyLibrary() throws IOException, JAXBException {
+
+		NotationLibrary notationLibrary = new NotationLibrary();
+		Path path = BASE_DIR.resolve("emptyLibrary.xml");
+		new DocumentPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryType.CC_LIBRARY);
+		NotationLibrary result = new DocumentPersist().readNotationLibrary(path);
+
+		assertEquals(0, result.getNotation().size());
+	}
+
+	@Test
+	public void canSerialiseTouch() throws IOException, JAXBException {
+
+		Touch touch = new Touch();
+
+		Notation notation = new Notation();
+		notation.setNumberOfBells(8);
+		notation.setNotation("12.34");
+		notation.setNotation2("-");
+		notation.setFoldedPalindrome(false);
+		notation.setName("TEST");
+		notation.setLeadLength(234);
+		notation.setLeadHead("AA");
+
+		touch.getNotation().add(notation);
+
+
+		Path path = BASE_DIR.resolve("touch.xml");
+		new DocumentPersist().writeTouch(touch, path);
+		Touch result = new DocumentPersist().readTouch(path);
+
+		assertEquals(1, result.getNotation().size());
+
+		Notation persistableNotationResult = result.getNotation().get(0);
 		assertEquals(8, persistableNotationResult.getNumberOfBells());
 		assertEquals("12.34", persistableNotationResult.getNotation());
 		assertEquals("-", persistableNotationResult.getNotation2());
@@ -75,16 +121,4 @@ public class DocumentPersistTest {
 		assertEquals(234, persistableNotationResult.getLeadLength());
 
 	}
-
-	@Test
-	public void canSerialiseEmptyLibrary() throws IOException, JAXBException {
-
-		PersistableNotationLibrary persistableNotationLibrary = new PersistableNotationLibrary();
-		Path path = BASE_DIR.resolve("emptyLibrary.xml");
-		new DocumentPersist().writeNotationLibrary(persistableNotationLibrary, path, NotationLibraryType.CC_LIBRARY);
-		PersistableNotationLibrary result = new DocumentPersist().readNotationLibrary(path);
-
-		assertEquals(0, result.getNotation().size());
-	}
-
 }

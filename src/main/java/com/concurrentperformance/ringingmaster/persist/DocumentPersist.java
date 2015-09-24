@@ -1,12 +1,15 @@
 package com.concurrentperformance.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibrary;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.Touch;
-import com.google.common.base.Strings;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVersionType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsageType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -28,16 +31,15 @@ public class DocumentPersist {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	public static final String XML_BASE_PACKAGE = "com.concurrentperformance.ringingmaster.persist.generated.v1";
-
 	public static final long NOTATION_LIBRARY_CURRENT_VERSION = 1;
+	public static final String XML_BASE_PACKAGE = "com.concurrentperformance.ringingmaster.persist.generated.v" + NOTATION_LIBRARY_CURRENT_VERSION;
 
-	public void writeNotationLibrary(final NotationLibrary notationLibrary, Path path, NotationLibraryType type) throws IOException, JAXBException {
+	public void writeNotationLibrary(final NotationLibraryType notationLibrary, Path path, NotationLibraryUsage usage) throws IOException, JAXBException {
 		checkNotNull(notationLibrary);
 		checkNotNull(path);
 
-		checkAndSetVersion(notationLibrary);
-		checkAndSetLibraryType(notationLibrary, type);
+		notationLibrary.setVersion(buildCurrentVersion());
+		checkAndSetLibraryType(notationLibrary, usage);
 
 		path = path.toAbsolutePath().normalize();
 
@@ -51,7 +53,7 @@ public class DocumentPersist {
 			final Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
 
-			m.marshal(notationLibrary, outputStream);
+			m.marshal(new ObjectFactory().createNotationLibrary(notationLibrary), outputStream);
 
 			outputStream.flush();
 
@@ -68,26 +70,17 @@ public class DocumentPersist {
 		}
 	}
 
-	private void checkAndSetVersion(NotationLibrary notationLibrary) {
-		if (notationLibrary.getVersion() != NOTATION_LIBRARY_CURRENT_VERSION &&
-				notationLibrary.getVersion() != 0) {
-			log.warn("Forcing library version from [{}] to [{}]", notationLibrary.getVersion(), NOTATION_LIBRARY_CURRENT_VERSION);
+	private void checkAndSetLibraryType(NotationLibraryType notationLibrary, NotationLibraryUsage libraryUsage) {
+		if (notationLibrary.getLibraryUsage() != null) {
+			log.warn("Forcing library name from [{}] to [{}]", notationLibrary.getLibraryUsage(), libraryUsage);
 		}
-		notationLibrary.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
+		notationLibrary.setLibraryUsage(LibraryUsageType.fromValue(libraryUsage.toString()));
 	}
 
-	private void checkAndSetLibraryType(NotationLibrary notationLibrary, NotationLibraryType type) {
-		if (!Strings.isNullOrEmpty(notationLibrary.getLibraryType())) {
-			log.warn("Forcing library name from [{}] to [{}]", notationLibrary.getLibraryType(), type);
-		}
-		notationLibrary.setLibraryType(type.toString());
-	}
-
-
-	public NotationLibrary readNotationLibrary(Path path) {
+	public NotationLibraryType readNotationLibrary(Path path) {
 		path = path.toAbsolutePath().normalize();
 
-		NotationLibrary notations = null;
+		NotationLibraryType notations = null;
 
 		InputStream inputStream = null;
 		try {
@@ -96,8 +89,9 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
-			notations = (NotationLibrary) unmarshaller.unmarshal(inputStream);
+			JAXBElement<NotationLibraryType> notationLibrary = (JAXBElement<NotationLibraryType>) unmarshaller.unmarshal(inputStream);
 
+			notations = notationLibrary.getValue();
 		} catch (final IOException e) {
 			log.error("Exception deserializing notations", e);
 		} catch (final JAXBException e) {
@@ -114,12 +108,12 @@ public class DocumentPersist {
 		return notations;
 	}
 
-	public void writeTouch(Touch touch, Path path)  throws IOException, JAXBException {
+
+	public void writeTouch(TouchType touch, Path path)  throws IOException, JAXBException {
 		checkNotNull(touch);
 		checkNotNull(path);
 
-		//TODO checkAndSetVersion(touch);
-		//TODO checkAndSetLibraryType(notationLibrary, type);
+		touch.setDocumentVersion(buildCurrentVersion());
 
 		path = path.toAbsolutePath().normalize();
 
@@ -133,7 +127,8 @@ public class DocumentPersist {
 			final Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
 
-			m.marshal(touch, outputStream);
+			m.marshal(new ObjectFactory().createTouch(touch), outputStream);
+
 
 			outputStream.flush();
 
@@ -151,8 +146,40 @@ public class DocumentPersist {
 
 	}
 
-	public Touch readTouch(Path path) {
-		return null;
+	public TouchType readTouch(Path path) {
+		path = path.toAbsolutePath().normalize();
 
+		TouchType touch = null;
+
+		InputStream inputStream = null;
+		try {
+			log.info("de-serialising from [{}]", path);
+			inputStream = Files.newInputStream(path, StandardOpenOption.READ);
+
+			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
+			final Unmarshaller unmarshaller = jc.createUnmarshaller();
+			JAXBElement<TouchType> notationLibrary = (JAXBElement<TouchType>) unmarshaller.unmarshal(inputStream);
+
+			touch = notationLibrary.getValue();
+		} catch (final IOException e) {
+			log.error("Exception deserializing touch", e);
+		} catch (final JAXBException e) {
+			log.error("Exception unmarshalling touch", e);
+		}
+		finally {
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (final IOException e) {}
+		}
+
+		return touch;
+	}
+
+	private DocumentVersionType buildCurrentVersion() {
+		DocumentVersionType versionType = new DocumentVersionType();
+		versionType.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
+		return versionType;
 	}
 }

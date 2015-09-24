@@ -5,7 +5,7 @@ package com.concurrentperformance.ringingmaster.persist;
  *
  * @author Lake
  */
-public enum NotationLibraryType {
+public enum NotationLibraryUsage {
 
 	CC_LIBRARY,
 	USER_LIBRARY

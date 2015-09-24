@@ -1,43 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:mx="http://www.ringingmaster.org.uk"
-           targetNamespace="http://www.ringingmaster.org.uk" elementFormDefault="qualified">
+           xmlns:rm="http://www.ringingmaster.org.uk/touch/v1"
+           targetNamespace="http://www.ringingmaster.org.uk/touch/v1" >
 
     <xs:annotation>
         <xs:documentation>
-            Ringing Master
+            Ringing Master document definition
         </xs:documentation>
     </xs:annotation>
 
-  <xs:complexType name="notation">
-    <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="numberOfBells" type="xs:int" use="required"/>
-    <xs:attribute name="notation" type="xs:string" use="required"/>
-    <xs:attribute name="notation2" type="xs:string" />
-    <xs:attribute name="foldedPalindrome" type="xs:boolean" default="false"/>
-    <xs:attribute name="leadHead" type="xs:string"/>
-    <xs:attribute name="leadLength" type="xs:int" use="required"/>
-  </xs:complexType>
+    <!-- Global elements !-->
+    <xs:element name="notationLibrary" type="rm:notationLibraryType"/>
+    <xs:element name="touch" type="rm:touchType"/>
 
-  <xs:element name="notationLibrary" >
-    <xs:complexType >
-      <xs:sequence>
-        <xs:element name="notation" type="notation" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="version" type="xs:long" use="required"/>
-      <xs:attribute name="libraryType" type="xs:string" use="required"/>
-      <xs:attribute name="notes" type="xs:string" use="optional"/>
-    </xs:complexType>
-  </xs:element>
 
-  <xs:element name="touch" >
-    <xs:complexType >
-      <xs:sequence>
-        <xs:element name="notation" type="notation" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="version" type="xs:long" use="required"/>
+
+    <xs:complexType name="documentVersionType">
+        <xs:attribute name="version" type="xs:long" use="required"/>
     </xs:complexType>
-  </xs:element>
+
+
+
+    <xs:complexType name="notationType">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="numberOfBells" type="rm:numberOfBellsType" use="required"/>
+        <xs:attribute name="notation" type="xs:string" use="required"/>
+        <xs:attribute name="notation2" type="xs:string"/>
+        <xs:attribute name="foldedPalindrome" type="xs:boolean" default="false"/>
+        <xs:attribute name="leadHead" type="xs:string"/>
+        <xs:attribute name="leadLength" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="numberOfBellsType">
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="3" />
+            <xs:enumeration value="4" />
+            <xs:enumeration value="5" />
+            <xs:enumeration value="6" />
+            <xs:enumeration value="7" />
+            <xs:enumeration value="8" />
+            <xs:enumeration value="9" />
+            <xs:enumeration value="10" />
+            <xs:enumeration value="11" />
+            <xs:enumeration value="12" />
+            <xs:enumeration value="13" />
+            <xs:enumeration value="14" />
+            <xs:enumeration value="15" />
+            <xs:enumeration value="16" />
+            <xs:enumeration value="17" />
+            <xs:enumeration value="18" />
+            <xs:enumeration value="19" />
+            <xs:enumeration value="20" />
+            <xs:enumeration value="21" />
+            <xs:enumeration value="22" />
+            <xs:enumeration value="23" />
+            <xs:enumeration value="24" />
+            <xs:enumeration value="25" />
+            <xs:enumeration value="26" />
+            <xs:enumeration value="27" />
+            <xs:enumeration value="28" />
+            <xs:enumeration value="29" />
+            <xs:enumeration value="30" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="bellsType">
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1" />
+            <xs:enumeration value="2" />
+            <xs:enumeration value="3" />
+            <xs:enumeration value="4" />
+            <xs:enumeration value="5" />
+            <xs:enumeration value="6" />
+            <xs:enumeration value="7" />
+            <xs:enumeration value="8" />
+            <xs:enumeration value="9" />
+            <xs:enumeration value="10" />
+            <xs:enumeration value="11" />
+            <xs:enumeration value="12" />
+            <xs:enumeration value="13" />
+            <xs:enumeration value="14" />
+            <xs:enumeration value="15" />
+            <xs:enumeration value="16" />
+            <xs:enumeration value="17" />
+            <xs:enumeration value="18" />
+            <xs:enumeration value="19" />
+            <xs:enumeration value="20" />
+            <xs:enumeration value="21" />
+            <xs:enumeration value="22" />
+            <xs:enumeration value="23" />
+            <xs:enumeration value="24" />
+            <xs:enumeration value="25" />
+            <xs:enumeration value="26" />
+            <xs:enumeration value="27" />
+            <xs:enumeration value="28" />
+            <xs:enumeration value="29" />
+            <xs:enumeration value="30" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="notationLibraryType">
+        <xs:sequence>
+            <xs:element name="version" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="notation" type="rm:notationType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="libraryUsage" type="rm:libraryUsageType" use="required"/>
+        <xs:attribute name="notes" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:simpleType name="libraryUsageType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CC_LIBRARY" />
+            <xs:enumeration value="USER_LIBRARY" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="touchType">
+        <xs:sequence>
+            <xs:element name="documentVersion" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="numberOfBells" type="rm:numberOfBellsType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="touchChecking" type="rm:touchCheckingType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="callFrom" type="rm:bellsType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="notation" type="rm:notationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="singleMethodActiveNotation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="definition" type="rm:definitionType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="touchCheckingType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="COURSE_BASED" />
+            <xs:enumeration value="LEAD_BASED" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="definitionType">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="notation" type="xs:string" use="optional"/>
+    </xs:complexType>
 
 </xs:schema>
 

@@ -15,7 +15,7 @@
 
     <!-- Types !-->
 
-    <xs:complexType name="documentVersionType">
+    <xs:complexType name="documentVersionPersist">
         <xs:attribute name="version" type="xs:long" use="required"/>
     </xs:complexType>
 
@@ -114,7 +114,7 @@
 
     <xs:complexType name="notationLibraryPersist">
         <xs:sequence>
-            <xs:element name="version" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="version" type="rm:documentVersionPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:libraryNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="libraryUsage" type="rm:libraryUsagePersist" use="required"/>
@@ -130,7 +130,7 @@
 
     <xs:complexType name="touchPersist">
         <xs:sequence>
-            <xs:element name="documentVersion" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="documentVersion" type="rm:documentVersionPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
@@ -140,7 +140,7 @@
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyPersist" minOccurs="0" maxOccurs="1"/>
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="definition" type="rm:definitionType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="definition" type="rm:definitionPersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -172,7 +172,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="definitionType">
+    <xs:complexType name="definitionPersist">
         <xs:attribute name="shorthand" type="xs:string" use="required"/>
         <xs:attribute name="notation" type="xs:string" use="required"/>
     </xs:complexType>

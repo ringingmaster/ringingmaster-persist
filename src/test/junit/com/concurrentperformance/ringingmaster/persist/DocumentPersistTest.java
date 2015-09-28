@@ -1,6 +1,6 @@
 package com.concurrentperformance.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
@@ -110,7 +110,7 @@ public class DocumentPersistTest {
 		touch.setSpliced(true);
 		touch.setPlainLeadToken("p");
 
-		DefinitionType definition = new ObjectFactory().createDefinitionType();
+		DefinitionPersist definition = new ObjectFactory().createDefinitionPersist();
 		definition.setShorthand("x*");
 		definition.setNotation("psp");
 		touch.getDefinition().add(definition);

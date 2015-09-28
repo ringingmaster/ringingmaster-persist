@@ -10,25 +10,21 @@ package com.concurrentperformance.ringingmaster.persist.generated.v1;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for callPersist complex type.
+ * <p>Java class for definitionPersist complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="callPersist">
+ * &lt;complexType name="definitionPersist">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="shorthand" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="notation" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="default" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
+ *       &lt;attribute name="shorthand" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="notation" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -37,46 +33,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "callPersist", propOrder = {
-    "name",
-    "shorthand",
-    "notation",
-    "_default"
-})
-public class CallPersist {
+@XmlType(name = "definitionPersist")
+public class DefinitionPersist {
 
-    @XmlElement(required = true)
-    protected String name;
-    @XmlElement(required = true)
+    @XmlAttribute(name = "shorthand", required = true)
     protected String shorthand;
-    @XmlElement(required = true)
+    @XmlAttribute(name = "notation", required = true)
     protected String notation;
-    @XmlElement(name = "default")
-    protected boolean _default;
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
 
     /**
      * Gets the value of the shorthand property.
@@ -124,22 +87,6 @@ public class CallPersist {
      */
     public void setNotation(String value) {
         this.notation = value;
-    }
-
-    /**
-     * Gets the value of the default property.
-     * 
-     */
-    public boolean isDefault() {
-        return _default;
-    }
-
-    /**
-     * Sets the value of the default property.
-     * 
-     */
-    public void setDefault(boolean value) {
-        this._default = value;
     }
 
 }

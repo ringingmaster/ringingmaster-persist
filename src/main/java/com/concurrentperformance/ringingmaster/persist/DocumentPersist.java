@@ -1,7 +1,7 @@
 package com.concurrentperformance.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVersionType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsageType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVersionPersist;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsagePersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
@@ -77,7 +77,7 @@ public class DocumentPersist {
 		if (notationLibrary.getLibraryUsage() != null) {
 			log.warn("Forcing library name from [{}] to [{}]", notationLibrary.getLibraryUsage(), libraryUsage);
 		}
-		notationLibrary.setLibraryUsage(LibraryUsageType.fromValue(libraryUsage.toString()));
+		notationLibrary.setLibraryUsage(LibraryUsagePersist.fromValue(libraryUsage.toString()));
 	}
 
 	public NotationLibraryPersist readNotationLibrary(Path path) {
@@ -180,8 +180,8 @@ public class DocumentPersist {
 		return touch;
 	}
 
-	private DocumentVersionType buildCurrentVersion() {
-		DocumentVersionType versionType = new DocumentVersionType();
+	private DocumentVersionPersist buildCurrentVersion() {
+		DocumentVersionPersist versionType = new DocumentVersionPersist();
 		versionType.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
 		return versionType;
 	}

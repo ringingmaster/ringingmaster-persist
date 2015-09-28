@@ -7,7 +7,7 @@ import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibr
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,7 +96,7 @@ public class DocumentPersistTest {
 	@Test
 	public void canSerialiseTouch() throws IOException, JAXBException {
 
-		TouchType touch = new TouchType();
+		TouchPersist touch = new TouchPersist();
 		touch.setTitle("Touch Title");
 		touch.setAuthor("Stephen");
 		touch.setNumberOfBells(8);
@@ -136,7 +136,7 @@ public class DocumentPersistTest {
 
 		Path path = BASE_DIR.resolve("touch.xml");
 		new DocumentPersist().writeTouch(touch, path);
-		TouchType result = new DocumentPersist().readTouch(path);
+		TouchPersist result = new DocumentPersist().readTouch(path);
 
 		assertEquals("Touch Title", result.getTitle());
 		assertEquals("Stephen", result.getAuthor());

@@ -11,7 +11,7 @@
 
     <!-- Global elements !-->
     <xs:element name="notationLibrary" type="rm:notationLibraryType"/>
-    <xs:element name="touch" type="rm:touchType"/>
+    <xs:element name="touch" type="rm:touchPersist"/>
 
     <!-- Types !-->
 
@@ -20,7 +20,7 @@
     </xs:complexType>
 
 
-    <xs:complexType name="notationKeyType">
+    <xs:complexType name="notationKeyPersist">
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="numberOfBells" type="rm:numberOfBellsType" use="required"/>
     </xs:complexType>
@@ -128,7 +128,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="touchType">
+    <xs:complexType name="touchPersist">
         <xs:sequence>
             <xs:element name="documentVersion" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>

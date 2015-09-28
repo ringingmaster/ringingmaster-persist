@@ -4,7 +4,7 @@ import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVers
 import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsageType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,7 +112,7 @@ public class DocumentPersist {
 	}
 
 
-	public void writeTouch(TouchType touch, Path path)  throws IOException, JAXBException {
+	public void writeTouch(TouchPersist touch, Path path)  throws IOException, JAXBException {
 		checkNotNull(touch);
 		checkNotNull(path);
 
@@ -149,10 +149,10 @@ public class DocumentPersist {
 
 	}
 
-	public TouchType readTouch(Path path) {
+	public TouchPersist readTouch(Path path) {
 		path = path.toAbsolutePath().normalize();
 
-		TouchType touch = null;
+		TouchPersist touch = null;
 
 		InputStream inputStream = null;
 		try {
@@ -161,7 +161,7 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
-			JAXBElement<TouchType> notationLibrary = (JAXBElement<TouchType>) unmarshaller.unmarshal(inputStream);
+			JAXBElement<TouchPersist> notationLibrary = (JAXBElement<TouchPersist>) unmarshaller.unmarshal(inputStream);
 
 			touch = notationLibrary.getValue();
 		} catch (final IOException e) {

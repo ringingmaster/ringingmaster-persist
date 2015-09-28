@@ -23,7 +23,7 @@ import java.nio.file.StandardOpenOption;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * TODO Comments
+ * This class handle's the document marshalling. ot the conversion to the domain objects.
  *
  * @author Lake
  */
@@ -33,6 +33,9 @@ public class DocumentPersist {
 
 	public static final long NOTATION_LIBRARY_CURRENT_VERSION = 1;
 	public static final String XML_BASE_PACKAGE = "com.concurrentperformance.ringingmaster.persist.generated.v" + NOTATION_LIBRARY_CURRENT_VERSION;
+
+
+	ObjectFactory objectFactory = new ObjectFactory();
 
 	public void writeNotationLibrary(final NotationLibraryType notationLibrary, Path path, NotationLibraryUsage usage) throws IOException, JAXBException {
 		checkNotNull(notationLibrary);
@@ -127,7 +130,7 @@ public class DocumentPersist {
 			final Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
 
-			m.marshal(new ObjectFactory().createTouch(touch), outputStream);
+			m.marshal(objectFactory.createTouch(touch), outputStream);
 
 
 			outputStream.flush();
@@ -182,4 +185,5 @@ public class DocumentPersist {
 		versionType.setVersion(NOTATION_LIBRARY_CURRENT_VERSION);
 		return versionType;
 	}
+
 }

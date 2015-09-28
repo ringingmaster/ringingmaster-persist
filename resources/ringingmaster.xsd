@@ -13,22 +13,55 @@
     <xs:element name="notationLibrary" type="rm:notationLibraryType"/>
     <xs:element name="touch" type="rm:touchType"/>
 
-
+    <!-- Types !-->
 
     <xs:complexType name="documentVersionType">
         <xs:attribute name="version" type="xs:long" use="required"/>
     </xs:complexType>
 
 
-
-    <xs:complexType name="notationType">
+    <xs:complexType name="notationKeyType">
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="numberOfBells" type="rm:numberOfBellsType" use="required"/>
-        <xs:attribute name="notation" type="xs:string" use="required"/>
-        <xs:attribute name="notation2" type="xs:string"/>
-        <xs:attribute name="foldedPalindrome" type="xs:boolean" default="false"/>
-        <xs:attribute name="leadHead" type="xs:string"/>
-        <xs:attribute name="leadLength" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="baseNotationType" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="rm:notationKeyType">
+                <xs:attribute name="notation" type="xs:string" use="required"/>
+                <xs:attribute name="notation2" type="xs:string"/>
+                <xs:attribute name="foldedPalindrome" type="xs:boolean" default="false"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="libraryNotationType">
+        <xs:complexContent>
+            <xs:extension base="rm:baseNotationType">
+                <xs:attribute name="leadHead" type="xs:string"/>
+                <xs:attribute name="leadLength" type="xs:int" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="touchNotationType">
+        <xs:complexContent>
+            <xs:extension base="rm:baseNotationType">
+                <xs:sequence>
+                    <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="callPersist">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="shorthand" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="notation" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="default" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:simpleType name="numberOfBellsType">
@@ -102,7 +135,7 @@
     <xs:complexType name="notationLibraryType">
         <xs:sequence>
             <xs:element name="version" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="rm:notationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="notation" type="rm:libraryNotationType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="libraryUsage" type="rm:libraryUsageType" use="required"/>
         <xs:attribute name="notes" type="xs:string" use="optional"/>
@@ -123,11 +156,11 @@
             <xs:element name="numberOfBells" type="rm:numberOfBellsType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="touchChecking" type="rm:touchCheckingType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsType" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="rm:notationType" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="singleMethodActiveNotation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="notation" type="rm:touchNotationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyType" minOccurs="0" maxOccurs="1"/>
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="definition" type="rm:definitionType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="definition" type="rm:definitionType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -139,8 +172,8 @@
     </xs:simpleType>
 
     <xs:complexType name="definitionType">
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="notation" type="xs:string" use="optional"/>
+        <xs:attribute name="shorthand" type="xs:string" use="required"/>
+        <xs:attribute name="notation" type="xs:string" use="required"/>
     </xs:complexType>
 
 </xs:schema>

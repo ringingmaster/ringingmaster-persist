@@ -1,8 +1,12 @@
 package com.concurrentperformance.ringingmaster.persist;
 
+import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchType;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +54,7 @@ public class DocumentPersistTest {
 
 		NotationLibraryType notationLibrary = new NotationLibraryType();
 		notationLibrary.setNotes("NOTES");
-		NotationType notation = new NotationType();
+		LibraryNotationType notation = new LibraryNotationType();
 		notation.setNumberOfBells(8);
 		notation.setNotation("12.34");
 		notation.setNotation2("-");
@@ -67,7 +71,7 @@ public class DocumentPersistTest {
 
 		assertEquals(1, result.getNotation().size());
 
-		NotationType notationResult = result.getNotation().get(0);
+		LibraryNotationType notationResult = result.getNotation().get(0);
 		assertEquals(8, notationResult.getNumberOfBells());
 		assertEquals("12.34", notationResult.getNotation());
 		assertEquals("-", notationResult.getNotation2());
@@ -92,36 +96,41 @@ public class DocumentPersistTest {
 	@Test
 	public void canSerialiseTouch() throws IOException, JAXBException {
 
-
-		NotationType notation1 = new NotationType();
-		notation1.setNumberOfBells(8);
-		notation1.setNotation("12.34");
-		notation1.setNotation2("-");
-		notation1.setFoldedPalindrome(false);
-		notation1.setName("TEST");
-		notation1.setLeadLength(234);
-		notation1.setLeadHead("AA");
-
-		NotationType notation2 = new NotationType();
-		notation2.setNumberOfBells(10);
-		notation2.setNotation("12.34");
-		notation2.setNotation2("-");
-		notation2.setFoldedPalindrome(false);
-		notation2.setName("TEST 2");
-		notation2.setLeadLength(345);
-		notation2.setLeadHead("BB");
-
 		TouchType touch = new TouchType();
 		touch.setTitle("Touch Title");
 		touch.setAuthor("Stephen");
 		touch.setNumberOfBells(8);
 		touch.setTouchChecking(TouchCheckingType.COURSE_BASED);
 		touch.setCallFrom(4);
-		touch.setSingleMethodActiveNotation("TEST 2 Royal");
+
+		NotationKeyType notationKeyType = new ObjectFactory().createNotationKeyType();
+		notationKeyType.setName("TEST 2 Royal");
+		notationKeyType.setNumberOfBells(8);
+		touch.setNonSplicedActiveNotation(notationKeyType);
 		touch.setSpliced(true);
 		touch.setPlainLeadToken("p");
 
+		DefinitionType definition = new ObjectFactory().createDefinitionType();
+		definition.setShorthand("x*");
+		definition.setNotation("psp");
+		touch.getDefinition().add(definition);
+
+		TouchNotationType notation1 = new TouchNotationType();
+		notation1.setName("TEST");
+		notation1.setNumberOfBells(8);
+		notation1.setNotation("12.34");
+		notation1.setNotation2("-");
+		notation1.setFoldedPalindrome(false);
+
 		touch.getNotation().add(notation1);
+
+		TouchNotationType notation2 = new TouchNotationType();
+		notation2.setName("TEST 2");
+		notation2.setNumberOfBells(10);
+		notation2.setNotation("12.34");
+		notation2.setNotation2("-");
+		notation2.setFoldedPalindrome(false);
+
 		touch.getNotation().add(notation2);
 
 
@@ -134,19 +143,21 @@ public class DocumentPersistTest {
 		assertEquals(8, result.getNumberOfBells());
 		assertEquals(TouchCheckingType.COURSE_BASED, result.getTouchChecking());
 		assertEquals(4, result.getCallFrom());
-		assertEquals("TEST 2 Royal", result.getSingleMethodActiveNotation());
+		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation());
 		assertEquals(true, result.isSpliced());
 		assertEquals("p", result.getPlainLeadToken());
+		assertEquals(1, result.getDefinition().size());
+		assertEquals("x*", result.getDefinition().get(0).getShorthand());
+		assertEquals("psp", result.getDefinition().get(0).getNotation());
 
 		assertEquals(2, result.getNotation().size());
-		NotationType persistableNotationResult = result.getNotation().get(0);
+		TouchNotationType persistableNotationResult = result.getNotation().get(0);
 		assertEquals(8, persistableNotationResult.getNumberOfBells());
 		assertEquals("12.34", persistableNotationResult.getNotation());
 		assertEquals("-", persistableNotationResult.getNotation2());
 		assertEquals(false, persistableNotationResult.isFoldedPalindrome());
 		assertEquals("TEST", persistableNotationResult.getName());
-		assertEquals("AA", persistableNotationResult.getLeadHead());
-		assertEquals(234, persistableNotationResult.getLeadLength());
+
 
 	}
 }

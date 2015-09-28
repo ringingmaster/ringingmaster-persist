@@ -117,11 +117,11 @@
             <xs:element name="version" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:libraryNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="libraryUsage" type="rm:libraryUsageType" use="required"/>
+        <xs:attribute name="libraryUsage" type="rm:libraryUsagePersist" use="required"/>
         <xs:attribute name="notes" type="xs:string" use="optional"/>
     </xs:complexType>
 
-    <xs:simpleType name="libraryUsageType">
+    <xs:simpleType name="libraryUsagePersist">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CC_LIBRARY" />
             <xs:enumeration value="USER_LIBRARY" />
@@ -134,7 +134,7 @@
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="touchChecking" type="rm:touchCheckingType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="touchChecking" type="rm:touchCheckingPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:touchNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyPersist" minOccurs="0" maxOccurs="1"/>
@@ -165,7 +165,7 @@
     </xs:complexType>
 
 
-    <xs:simpleType name="touchCheckingType">
+    <xs:simpleType name="touchCheckingPersist">
         <xs:restriction base="xs:string">
             <xs:enumeration value="COURSE_BASED" />
             <xs:enumeration value="LEAD_BASED" />

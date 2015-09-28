@@ -5,7 +5,7 @@ import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotat
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
 import org.junit.Before;
@@ -100,7 +100,7 @@ public class DocumentPersistTest {
 		touch.setTitle("Touch Title");
 		touch.setAuthor("Stephen");
 		touch.setNumberOfBells(8);
-		touch.setTouchChecking(TouchCheckingType.COURSE_BASED);
+		touch.setTouchChecking(TouchCheckingPersist.COURSE_BASED);
 		touch.setCallFrom(4);
 
 		NotationKeyPersist notationKeyPersist = new ObjectFactory().createNotationKeyPersist();
@@ -141,7 +141,7 @@ public class DocumentPersistTest {
 		assertEquals("Touch Title", result.getTitle());
 		assertEquals("Stephen", result.getAuthor());
 		assertEquals(8, result.getNumberOfBells());
-		assertEquals(TouchCheckingType.COURSE_BASED, result.getTouchChecking());
+		assertEquals(TouchCheckingPersist.COURSE_BASED, result.getTouchChecking());
 		assertEquals(4, result.getCallFrom());
 		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation());
 		assertEquals(true, result.isSpliced());

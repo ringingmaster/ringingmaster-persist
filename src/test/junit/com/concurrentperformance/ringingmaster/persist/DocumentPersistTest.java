@@ -3,7 +3,7 @@ package com.concurrentperformance.ringingmaster.persist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationPersist;
@@ -52,7 +52,7 @@ public class DocumentPersistTest {
 	@Test
 	public void canSerialiseLibrary() throws IOException, JAXBException {
 
-		NotationLibraryType notationLibrary = new NotationLibraryType();
+		NotationLibraryPersist notationLibrary = new NotationLibraryPersist();
 		notationLibrary.setNotes("NOTES");
 		LibraryNotationPersist notation = new LibraryNotationPersist();
 		notation.setNumberOfBells(8);
@@ -67,7 +67,7 @@ public class DocumentPersistTest {
 
 		Path path = BASE_DIR.resolve("library.xml");
 		new DocumentPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
-		NotationLibraryType result = new DocumentPersist().readNotationLibrary(path);
+		NotationLibraryPersist result = new DocumentPersist().readNotationLibrary(path);
 
 		assertEquals(1, result.getNotation().size());
 
@@ -85,10 +85,10 @@ public class DocumentPersistTest {
 	@Test
 	public void canSerialiseEmptyLibrary() throws IOException, JAXBException {
 
-		NotationLibraryType notationLibrary = new NotationLibraryType();
+		NotationLibraryPersist notationLibrary = new NotationLibraryPersist();
 		Path path = BASE_DIR.resolve("emptyLibrary.xml");
 		new DocumentPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
-		NotationLibraryType result = new DocumentPersist().readNotationLibrary(path);
+		NotationLibraryPersist result = new DocumentPersist().readNotationLibrary(path);
 
 		assertEquals(0, result.getNotation().size());
 	}

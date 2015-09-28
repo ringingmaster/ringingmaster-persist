@@ -2,7 +2,7 @@ package com.concurrentperformance.ringingmaster.persist;
 
 import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVersionType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsageType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class DocumentPersist {
 
 	ObjectFactory objectFactory = new ObjectFactory();
 
-	public void writeNotationLibrary(final NotationLibraryType notationLibrary, Path path, NotationLibraryUsage usage) throws IOException, JAXBException {
+	public void writeNotationLibrary(final NotationLibraryPersist notationLibrary, Path path, NotationLibraryUsage usage) throws IOException, JAXBException {
 		checkNotNull(notationLibrary);
 		checkNotNull(path);
 
@@ -73,17 +73,17 @@ public class DocumentPersist {
 		}
 	}
 
-	private void checkAndSetLibraryType(NotationLibraryType notationLibrary, NotationLibraryUsage libraryUsage) {
+	private void checkAndSetLibraryType(NotationLibraryPersist notationLibrary, NotationLibraryUsage libraryUsage) {
 		if (notationLibrary.getLibraryUsage() != null) {
 			log.warn("Forcing library name from [{}] to [{}]", notationLibrary.getLibraryUsage(), libraryUsage);
 		}
 		notationLibrary.setLibraryUsage(LibraryUsageType.fromValue(libraryUsage.toString()));
 	}
 
-	public NotationLibraryType readNotationLibrary(Path path) {
+	public NotationLibraryPersist readNotationLibrary(Path path) {
 		path = path.toAbsolutePath().normalize();
 
-		NotationLibraryType notations = null;
+		NotationLibraryPersist notations = null;
 
 		InputStream inputStream = null;
 		try {
@@ -92,7 +92,7 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
-			JAXBElement<NotationLibraryType> notationLibrary = (JAXBElement<NotationLibraryType>) unmarshaller.unmarshal(inputStream);
+			JAXBElement<NotationLibraryPersist> notationLibrary = (JAXBElement<NotationLibraryPersist>) unmarshaller.unmarshal(inputStream);
 
 			notations = notationLibrary.getValue();
 		} catch (final IOException e) {

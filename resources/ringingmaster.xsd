@@ -10,7 +10,7 @@
     </xs:annotation>
 
     <!-- Global elements !-->
-    <xs:element name="notationLibrary" type="rm:notationLibraryType"/>
+    <xs:element name="notationLibrary" type="rm:notationLibraryPersist"/>
     <xs:element name="touch" type="rm:touchPersist"/>
 
     <!-- Types !-->
@@ -112,7 +112,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="notationLibraryType">
+    <xs:complexType name="notationLibraryPersist">
         <xs:sequence>
             <xs:element name="version" type="rm:documentVersionType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:libraryNotationPersist" minOccurs="0" maxOccurs="unbounded"/>

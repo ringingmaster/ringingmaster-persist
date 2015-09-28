@@ -1,8 +1,8 @@
 package com.concurrentperformance.ringingmaster.persist;
 
 import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationPersist;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
@@ -54,7 +54,7 @@ public class DocumentPersistTest {
 
 		NotationLibraryType notationLibrary = new NotationLibraryType();
 		notationLibrary.setNotes("NOTES");
-		LibraryNotationType notation = new LibraryNotationType();
+		LibraryNotationPersist notation = new LibraryNotationPersist();
 		notation.setNumberOfBells(8);
 		notation.setNotation("12.34");
 		notation.setNotation2("-");
@@ -71,7 +71,7 @@ public class DocumentPersistTest {
 
 		assertEquals(1, result.getNotation().size());
 
-		LibraryNotationType notationResult = result.getNotation().get(0);
+		LibraryNotationPersist notationResult = result.getNotation().get(0);
 		assertEquals(8, notationResult.getNumberOfBells());
 		assertEquals("12.34", notationResult.getNotation());
 		assertEquals("-", notationResult.getNotation2());
@@ -103,10 +103,10 @@ public class DocumentPersistTest {
 		touch.setTouchChecking(TouchCheckingType.COURSE_BASED);
 		touch.setCallFrom(4);
 
-		NotationKeyType notationKeyType = new ObjectFactory().createNotationKeyType();
-		notationKeyType.setName("TEST 2 Royal");
-		notationKeyType.setNumberOfBells(8);
-		touch.setNonSplicedActiveNotation(notationKeyType);
+		NotationKeyPersist notationKeyPersist = new ObjectFactory().createNotationKeyPersist();
+		notationKeyPersist.setName("TEST 2 Royal");
+		notationKeyPersist.setNumberOfBells(8);
+		touch.setNonSplicedActiveNotation(notationKeyPersist);
 		touch.setSpliced(true);
 		touch.setPlainLeadToken("p");
 

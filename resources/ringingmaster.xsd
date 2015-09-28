@@ -44,26 +44,6 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="touchNotationType">
-        <xs:complexContent>
-            <xs:extension base="rm:baseNotationType">
-                <xs:sequence>
-                    <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="callPersist">
-        <xs:sequence>
-            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="shorthand" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="default" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-        </xs:sequence>
-    </xs:complexType>
-
     <xs:simpleType name="numberOfBellsType">
         <xs:restriction base="xs:int">
             <xs:enumeration value="3" />
@@ -156,13 +136,34 @@
             <xs:element name="numberOfBells" type="rm:numberOfBellsType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="touchChecking" type="rm:touchCheckingType" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsType" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="rm:touchNotationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="notation" type="rm:touchNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyType" minOccurs="0" maxOccurs="1"/>
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="definition" type="rm:definitionType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="touchNotationPersist">
+        <xs:complexContent>
+            <xs:extension base="rm:baseNotationType">
+                <xs:sequence>
+                    <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="callPersist">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="shorthand" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="notation" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="default" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
 
     <xs:simpleType name="touchCheckingType">
         <xs:restriction base="xs:string">

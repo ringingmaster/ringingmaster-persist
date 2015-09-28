@@ -6,7 +6,7 @@ import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyT
 import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryType;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingType;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationType;
+import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationPersist;
 import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchType;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,7 +115,7 @@ public class DocumentPersistTest {
 		definition.setNotation("psp");
 		touch.getDefinition().add(definition);
 
-		TouchNotationType notation1 = new TouchNotationType();
+		TouchNotationPersist notation1 = new TouchNotationPersist();
 		notation1.setName("TEST");
 		notation1.setNumberOfBells(8);
 		notation1.setNotation("12.34");
@@ -124,7 +124,7 @@ public class DocumentPersistTest {
 
 		touch.getNotation().add(notation1);
 
-		TouchNotationType notation2 = new TouchNotationType();
+		TouchNotationPersist notation2 = new TouchNotationPersist();
 		notation2.setName("TEST 2");
 		notation2.setNumberOfBells(10);
 		notation2.setNotation("12.34");
@@ -151,7 +151,7 @@ public class DocumentPersistTest {
 		assertEquals("psp", result.getDefinition().get(0).getNotation());
 
 		assertEquals(2, result.getNotation().size());
-		TouchNotationType persistableNotationResult = result.getNotation().get(0);
+		TouchNotationPersist persistableNotationResult = result.getNotation().get(0);
 		assertEquals(8, persistableNotationResult.getNumberOfBells());
 		assertEquals("12.34", persistableNotationResult.getNotation());
 		assertEquals("-", persistableNotationResult.getNotation2());

@@ -55,7 +55,7 @@ public class DocumentPersistTest {
 		NotationLibraryPersist notationLibrary = new NotationLibraryPersist();
 		notationLibrary.setNotes("NOTES");
 		LibraryNotationPersist notation = new LibraryNotationPersist();
-		notation.setNumberOfBells(8);
+		notation.setNumberOfWorkingBells(8);
 		notation.setNotation("12.34");
 		notation.setNotation2("-");
 		notation.setFoldedPalindrome(false);
@@ -72,7 +72,7 @@ public class DocumentPersistTest {
 		assertEquals(1, result.getNotation().size());
 
 		LibraryNotationPersist notationResult = result.getNotation().get(0);
-		assertEquals(8, notationResult.getNumberOfBells());
+		assertEquals(8, notationResult.getNumberOfWorkingBells());
 		assertEquals("12.34", notationResult.getNotation());
 		assertEquals("-", notationResult.getNotation2());
 		assertEquals(false, notationResult.isFoldedPalindrome());
@@ -105,19 +105,19 @@ public class DocumentPersistTest {
 
 		NotationKeyPersist notationKeyPersist = new ObjectFactory().createNotationKeyPersist();
 		notationKeyPersist.setName("TEST 2 Royal");
-		notationKeyPersist.setNumberOfBells(8);
+		notationKeyPersist.setNumberOfWorkingBells(8);
 		touch.setNonSplicedActiveNotation(notationKeyPersist);
 		touch.setSpliced(true);
 		touch.setPlainLeadToken("p");
 
 		DefinitionPersist definition = new ObjectFactory().createDefinitionPersist();
 		definition.setShorthand("x*");
-		definition.setNotation("psp");
+		definition.setCharacters("psp");
 		touch.getDefinition().add(definition);
 
 		TouchNotationPersist notation1 = new TouchNotationPersist();
 		notation1.setName("TEST");
-		notation1.setNumberOfBells(8);
+		notation1.setNumberOfWorkingBells(8);
 		notation1.setNotation("12.34");
 		notation1.setNotation2("-");
 		notation1.setFoldedPalindrome(false);
@@ -126,7 +126,7 @@ public class DocumentPersistTest {
 
 		TouchNotationPersist notation2 = new TouchNotationPersist();
 		notation2.setName("TEST 2");
-		notation2.setNumberOfBells(10);
+		notation2.setNumberOfWorkingBells(10);
 		notation2.setNotation("12.34");
 		notation2.setNotation2("-");
 		notation2.setFoldedPalindrome(false);
@@ -148,11 +148,11 @@ public class DocumentPersistTest {
 		assertEquals("p", result.getPlainLeadToken());
 		assertEquals(1, result.getDefinition().size());
 		assertEquals("x*", result.getDefinition().get(0).getShorthand());
-		assertEquals("psp", result.getDefinition().get(0).getNotation());
+		assertEquals("psp", result.getDefinition().get(0).getCharacters());
 
 		assertEquals(2, result.getNotation().size());
 		TouchNotationPersist persistableNotationResult = result.getNotation().get(0);
-		assertEquals(8, persistableNotationResult.getNumberOfBells());
+		assertEquals(8, persistableNotationResult.getNumberOfWorkingBells());
 		assertEquals("12.34", persistableNotationResult.getNotation());
 		assertEquals("-", persistableNotationResult.getNotation2());
 		assertEquals(false, persistableNotationResult.isFoldedPalindrome());

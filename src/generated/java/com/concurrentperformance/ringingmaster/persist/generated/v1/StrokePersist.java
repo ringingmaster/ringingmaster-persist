@@ -13,32 +13,32 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for touchCheckingPersist.
+ * <p>Java class for strokePersist.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="touchCheckingPersist">
+ * &lt;simpleType name="strokePersist">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="COURSE_BASED"/>
- *     &lt;enumeration value="LEAD_BASED"/>
+ *     &lt;enumeration value="BACKSTROKE"/>
+ *     &lt;enumeration value="HANDSTROKE"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "touchCheckingPersist")
+@XmlType(name = "strokePersist")
 @XmlEnum
-public enum TouchCheckingPersist {
+public enum StrokePersist {
 
-    COURSE_BASED,
-    LEAD_BASED;
+    BACKSTROKE,
+    HANDSTROKE;
 
     public String value() {
         return name();
     }
 
-    public static TouchCheckingPersist fromValue(String v) {
+    public static StrokePersist fromValue(String v) {
         return valueOf(v);
     }
 

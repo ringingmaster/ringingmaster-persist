@@ -22,7 +22,7 @@
 
     <xs:complexType name="notationKeyPersist">
         <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="numberOfBells" type="rm:numberOfBellsPersist" use="required"/>
+        <xs:attribute name="numberOfWorkingBells" type="rm:numberOfBellsPersist" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="baseNotationPersist" abstract="true">
@@ -131,9 +131,9 @@
     <xs:complexType name="touchPersist">
         <xs:sequence>
             <xs:element name="documentVersion" type="rm:documentVersionPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="touchChecking" type="rm:touchCheckingPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:touchNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
@@ -141,6 +141,16 @@
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="definition" type="rm:definitionPersist" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="cells" type="rm:touchCellsPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="startChange" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="startRow" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="startStroke" type="rm:strokePersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="startNotation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="terminationMaxRows" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="terminationMaxLeads" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="terminationMaxParts" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="terminationMaxCircularTouch" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="terminationChange" type="xs:string" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -148,20 +158,21 @@
         <xs:complexContent>
             <xs:extension base="rm:baseNotationPersist">
                 <xs:sequence>
-                    <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:choice>
+                        <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:choice>
+                    <xs:element name="splicedIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="callPersist">
-        <xs:sequence>
-            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="shorthand" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="default" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="shorthand" type="xs:string" use="required"/>
+        <xs:attribute name="notation" type="xs:string" use="required"/>
+        <xs:attribute name="default" type="xs:boolean" use="required"/>
     </xs:complexType>
 
 
@@ -172,9 +183,33 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="strokePersist">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BACKSTROKE" />
+            <xs:enumeration value="HANDSTROKE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="touchCellsPersist">
+        <xs:sequence>
+            <xs:element name="cell" type="rm:touchCellPersist" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="rows" type="xs:int" use="required"/>
+        <xs:attribute name="columns" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="touchCellPersist">
+        <xs:attribute name="row" type="xs:int" use="required"/>
+        <xs:attribute name="column" type="xs:int" use="required"/>
+        <xs:attribute name="characters" type="xs:string" use="required"/>
+    </xs:complexType>
+
     <xs:complexType name="definitionPersist">
-        <xs:attribute name="shorthand" type="xs:string" use="required"/>
-        <xs:attribute name="notation" type="xs:string" use="required"/>
+        <xs:complexContent>
+            <xs:extension base="rm:touchCellPersist">
+                <xs:attribute name="shorthand" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
 </xs:schema>

@@ -143,7 +143,7 @@ public class DocumentPersistTest {
 		assertEquals(8, result.getNumberOfBells());
 		assertEquals(TouchCheckingPersist.COURSE_BASED, result.getTouchChecking());
 		assertEquals(4, result.getCallFrom());
-		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation());
+		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation().getName());
 		assertEquals(true, result.isSpliced());
 		assertEquals("p", result.getPlainLeadToken());
 		assertEquals(1, result.getDefinition().size());

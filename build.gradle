@@ -1,5 +1,26 @@
+plugins {
+    id 'com.ewerk.gradle.plugins.jaxb2' version '1.0.0'
+}
+
 dependencies {
 
+}
+jaxb2 {
+    xjc {
+        'ringingmaster-persist-classes' {
+            basePackage = 'com.concurrentperformance.ringingmaster.persist.generated.v1'
+            schema = 'src/main/resources/ringingmaster.xsd'
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/generated'
+        }
+    }
+}
     //TODO need to convert the jaxb conversion
 
 //    <!-- JaxB -->
@@ -15,4 +36,3 @@ dependencies {
 //    <!-- TEST: General -->
 //    <dependency org="junit" name="junit" rev="4.12" conf="testlib"/>
 //    <dependency org="org.mockito" name="mockito-all" rev="1.10.19" conf="testlib"/>
-}

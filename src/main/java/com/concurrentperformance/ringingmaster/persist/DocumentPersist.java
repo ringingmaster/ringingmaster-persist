@@ -50,7 +50,7 @@ public class DocumentPersist {
 		try {
 			log.info("Writing the Notation library to [" + path + "]");
 
-			outputStream = Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING );
+			outputStream = Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING );
 
 			final JAXBContext jc = JAXBContext.newInstance(XML_BASE_PACKAGE);
 			final Marshaller m = jc.createMarshaller();

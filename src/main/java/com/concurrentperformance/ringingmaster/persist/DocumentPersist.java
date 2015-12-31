@@ -69,7 +69,9 @@ public class DocumentPersist {
 				if (outputStream != null) {
 					outputStream.close();
 				}
-			} catch (final IOException e) {}
+			} catch (final IOException e) {
+				//Deliberately empty
+			}
 		}
 	}
 
@@ -92,6 +94,7 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
+			@SuppressWarnings("unchecked")
 			JAXBElement<NotationLibraryPersist> notationLibrary = (JAXBElement<NotationLibraryPersist>) unmarshaller.unmarshal(inputStream);
 
 			notations = notationLibrary.getValue();
@@ -105,7 +108,9 @@ public class DocumentPersist {
 				if (inputStream != null) {
 					inputStream.close();
 				}
-			} catch (final IOException e) {}
+			} catch (final IOException e) {
+				//Deliberately empty
+			}
 		}
 
 		return notations;
@@ -144,7 +149,9 @@ public class DocumentPersist {
 				if (outputStream != null) {
 					outputStream.close();
 				}
-			} catch (final IOException e) {}
+			} catch (final IOException e) {
+				//Deliberately empty
+			}
 		}
 
 	}
@@ -161,6 +168,7 @@ public class DocumentPersist {
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
+			@SuppressWarnings("unchecked")
 			JAXBElement<TouchPersist> notationLibrary = (JAXBElement<TouchPersist>) unmarshaller.unmarshal(inputStream);
 
 			touch = notationLibrary.getValue();
@@ -174,7 +182,9 @@ public class DocumentPersist {
 				if (inputStream != null) {
 					inputStream.close();
 				}
-			} catch (final IOException e) {}
+			} catch (final IOException e) {
+				//Deliberately empty
+			}
 		}
 
 		return touch;

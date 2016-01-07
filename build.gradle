@@ -10,6 +10,7 @@ jaxb2 {
         'ringingmaster-persist-classes' {
             basePackage = 'com.concurrentperformance.ringingmaster.persist.generated.v1'
             schema = 'src/main/resources/ringingmaster.xsd'
+
         }
     }
 }

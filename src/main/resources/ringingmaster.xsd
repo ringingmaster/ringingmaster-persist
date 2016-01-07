@@ -135,10 +135,10 @@
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="touchChecking" type="rm:touchCheckingPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:touchNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyPersist" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="definition" type="rm:definitionPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="cells" type="rm:touchCellsPersist" minOccurs="1" maxOccurs="1"/>

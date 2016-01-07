@@ -84,12 +84,12 @@ public class DocumentPersist {
 
 	public NotationLibraryPersist readNotationLibrary(Path path) {
 		path = path.toAbsolutePath().normalize();
+		log.info(">>> de-serialising from [{}]", path);
 
 		NotationLibraryPersist notations = null;
 
 		InputStream inputStream = null;
 		try {
-			log.info("de-serialising from [{}]", path);
 			inputStream = Files.newInputStream(path, StandardOpenOption.READ);
 
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
@@ -112,6 +112,7 @@ public class DocumentPersist {
 				//Deliberately empty
 			}
 		}
+		log.info("<<< de-serialising from [{}]", path);
 
 		return notations;
 	}

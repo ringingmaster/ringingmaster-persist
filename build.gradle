@@ -1,5 +1,5 @@
-plugins {
-    id 'com.github.jacobono.jaxb' version '1.3.5'
+configurations {
+    jaxb
 }
 
 dependencies {
@@ -9,21 +9,36 @@ dependencies {
 }
 
 
-jaxb {
-    xsdDir = "ringingmaster-persist/src/main/resources"
-    xjc {
-        taskClassname = "com.sun.tools.xjc.XJC2Task"
-        generatePackage = "com.concurrentperformance.ringingmaster.persist.generated.v1"
-//        header = false
-        destinationDir = 'src/generated/java'
-//        args               = []
-    }
-}
-
 sourceSets {
     main {
         java {
             srcDir 'src/generated/java'
         }
     }
+}
+
+task generateRingingMasterPersistJaxbJavaFiles (group: 'ringingmaster', dependsOn: 'clean') {
+    ext.sourcesDir = "${projectDir}/src/generated/java"
+    ext.classesDir = "${buildDir}/classes/jaxb"
+
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxb.asPath
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            xjc(destdir: sourcesDir, package: 'com.concurrentperformance.ringingmaster.persist.generated.v1') {
+                schema(dir: "${projectDir}/src/main/resources", includes: "**/*.xsd")
+                arg(value: "-nv")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+        }
+    }
+}
+
+clean{
+    delete "${projectDir}/src/generated/java"
 }

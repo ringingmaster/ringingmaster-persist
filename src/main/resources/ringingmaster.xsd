@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:rm="http://www.ringingmaster.org.uk/touch/v1"
-           targetNamespace="http://www.ringingmaster.org.uk/touch/v1" >
+           xmlns:rm="http://www.ringingmaster.org.uk/persist/v1"
+           targetNamespace="http://www.ringingmaster.org.uk/persist/v1" >
 
     <xs:annotation>
         <xs:documentation>

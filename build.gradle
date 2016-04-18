@@ -15,7 +15,7 @@ def generatedPersistModelGeneratedDir = "${projectDir}/src/generated/java"
 // Add generated code into source set.
 sourceSets.main.java.srcDir generatedPersistModelGeneratedDir
 
-// Ensure the generated files are in the compiled source, along with forcing the generation
+// Ensure the generated files are in the compiled source, along with forcing the generation process
 compileJava.source generateRingingMasterPersistJaxbJavaFiles.outputs.files, sourceSets.main.java
 
 task generateRingingMasterPersistJaxbJavaFiles (group: 'ringingmaster') {

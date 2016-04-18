@@ -8,37 +8,38 @@ dependencies {
     jaxb 'javax.xml.bind:jaxb-api:2.2.7'
 }
 
+def generatedPersistModelSchemaDir = "${projectDir}/src/main/resources"
+def generatedPersistModelClassesDir = "${buildDir}/classes/generated/jaxb"
+def generatedPersistModelGeneratedDir = "${projectDir}/src/generated/java"
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/generated/java'
-        }
-    }
-}
+// Add generated code into source set.
+sourceSets.main.java.srcDir generatedPersistModelGeneratedDir
 
-task generateRingingMasterPersistJaxbJavaFiles (group: 'ringingmaster', dependsOn: 'clean') {
-    ext.sourcesDir = "${projectDir}/src/generated/java"
-    ext.classesDir = "${buildDir}/classes/jaxb"
+// Ensure the generated files are in the compiled source, along with forcing the generation
+compileJava.source generateRingingMasterPersistJaxbJavaFiles.outputs.files, sourceSets.main.java
 
-    outputs.dir classesDir
+task generateRingingMasterPersistJaxbJavaFiles (group: 'ringingmaster') {
 
-    doLast() {
+    // Drive the UP-TO-DATE mechanism
+    inputs.dir generatedPersistModelSchemaDir
+    outputs.dir generatedPersistModelClassesDir
+
+    doFirst() {
         project.ant {
             taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
                     classpath: configurations.jaxb.asPath
-            mkdir(dir: sourcesDir)
-            mkdir(dir: classesDir)
+            mkdir(dir: generatedPersistModelGeneratedDir)
+            mkdir(dir: generatedPersistModelClassesDir)
 
-            xjc(destdir: sourcesDir, package: 'com.concurrentperformance.ringingmaster.persist.generated.v1') {
-                schema(dir: "${projectDir}/src/main/resources", includes: "**/*.xsd")
+            xjc(destdir: generatedPersistModelGeneratedDir, package: 'com.concurrentperformance.ringingmaster.persist.generated.v1') {
+                schema(dir: generatedPersistModelSchemaDir, includes: "**/*.xsd")
                 arg(value: "-nv")
-                produces(dir: sourcesDir, includes: "**/*.java")
+                produces(dir: generatedPersistModelGeneratedDir, includes: "**/*.java")
             }
         }
     }
 }
 
 clean{
-    delete "${projectDir}/src/generated/java"
+    delete generatedPersistModelGeneratedDir
 }

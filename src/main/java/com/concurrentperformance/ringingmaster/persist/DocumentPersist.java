@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
@@ -171,12 +172,13 @@ public class DocumentPersist {
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
 			@SuppressWarnings("unchecked")
 			JAXBElement<TouchPersist> notationLibrary = (JAXBElement<TouchPersist>) unmarshaller.unmarshal(inputStream);
-
 			touch = notationLibrary.getValue();
+		} catch (final NoSuchFileException e) {
+			throw new RuntimeException("Cant find path [" + path.toString() + "]", e);
 		} catch (final IOException e) {
-			log.error("Exception deserializing touch", e);
+			throw new RuntimeException("Exception deserializing touch", e);
 		} catch (final JAXBException e) {
-			log.error("Exception unmarshalling touch", e);
+			throw new RuntimeException("Exception unmarshalling touch", e);
 		}
 		finally {
 			try {

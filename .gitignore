@@ -1,4 +1,7 @@
-*.iml
-/build/
+out
+build
+.idea
+.gradle
+
 /src/generated/
 /src/test/dump/

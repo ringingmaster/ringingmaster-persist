@@ -1,4 +1,4 @@
-package com.concurrentperformance.ringingmaster.persist;
+package org.ringingmaster.persist;
 
 /**
  * TODO Comments

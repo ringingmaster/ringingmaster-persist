@@ -1,13 +1,13 @@
-package com.concurrentperformance.ringingmaster.persist;
+package org.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.DefinitionPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryNotationPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationKeyPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchCheckingPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchNotationPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
+import org.ringingmaster.persist.generated.v1.DefinitionPersist;
+import org.ringingmaster.persist.generated.v1.LibraryNotationPersist;
+import org.ringingmaster.persist.generated.v1.NotationKeyPersist;
+import org.ringingmaster.persist.generated.v1.NotationLibraryPersist;
+import org.ringingmaster.persist.generated.v1.ObjectFactory;
+import org.ringingmaster.persist.generated.v1.TouchCheckingPersist;
+import org.ringingmaster.persist.generated.v1.TouchNotationPersist;
+import org.ringingmaster.persist.generated.v1.TouchPersist;
 import org.junit.Before;
 import org.junit.Test;
 

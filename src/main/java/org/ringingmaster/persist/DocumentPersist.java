@@ -1,10 +1,10 @@
-package com.concurrentperformance.ringingmaster.persist;
+package org.ringingmaster.persist;
 
-import com.concurrentperformance.ringingmaster.persist.generated.v1.DocumentVersionPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.LibraryUsagePersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.NotationLibraryPersist;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.ObjectFactory;
-import com.concurrentperformance.ringingmaster.persist.generated.v1.TouchPersist;
+import org.ringingmaster.persist.generated.v1.DocumentVersionPersist;
+import org.ringingmaster.persist.generated.v1.LibraryUsagePersist;
+import org.ringingmaster.persist.generated.v1.NotationLibraryPersist;
+import org.ringingmaster.persist.generated.v1.ObjectFactory;
+import org.ringingmaster.persist.generated.v1.TouchPersist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +33,7 @@ public class DocumentPersist {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	public static final long NOTATION_LIBRARY_CURRENT_VERSION = 1;
-	public static final String XML_BASE_PACKAGE = "com.concurrentperformance.ringingmaster.persist.generated.v" + NOTATION_LIBRARY_CURRENT_VERSION;
+	public static final String XML_BASE_PACKAGE = "org.ringingmaster.persist.generated.v" + NOTATION_LIBRARY_CURRENT_VERSION;
 
 
 	ObjectFactory objectFactory = new ObjectFactory();

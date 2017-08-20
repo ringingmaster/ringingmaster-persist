@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-group 'com.concurrentperformance.ringingmaster'
+group 'org.ringingmaster'
 version '1.0.0'
 
 compileJava {
@@ -64,7 +64,7 @@ task generateRingingMasterPersistJaxbJavaFiles (group: 'ringingmaster') {
             mkdir(dir: generatedPersistModelGeneratedDir)
             mkdir(dir: generatedPersistModelClassesDir)
 
-            xjc(destdir: generatedPersistModelGeneratedDir, package: 'com.concurrentperformance.ringingmaster.persist.generated.v1') {
+            xjc(destdir: generatedPersistModelGeneratedDir, package: 'org.ringingmaster.persist.generated.v1') {
                 schema(dir: generatedPersistModelSchemaDir, includes: "**/*.xsd")
                 arg(value: "-nv")
                 produces(dir: generatedPersistModelGeneratedDir, includes: "**/*.java")

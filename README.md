@@ -4,7 +4,7 @@
 
 
 Conversion of domain objects into XML serialisation format. 
-Continence classes and methods to handle writing of the serialisation format to the file system. 
+Convenience classes and methods to handle writing of the serialisation format to the file system. 
 
 
 ## IMPORTANT

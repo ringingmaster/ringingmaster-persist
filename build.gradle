@@ -4,8 +4,8 @@ group 'org.ringingmaster'
 version '1.0.0'
 
 compileJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 1.10
+    targetCompatibility = 1.10
 }
 
 repositories {
@@ -25,6 +25,10 @@ dependencies {
 
     jaxb 'org.glassfish.jaxb:jaxb-xjc:2.2.11'
     jaxb 'org.glassfish.jaxb:jaxb-runtime:2.2.11'
+    jaxb 'javax.activation:activation:1.1.1'
+
+    compile 'javax.xml.bind:jaxb-api:2.1'
+    compile 'com.sun.xml.bind:jaxb-impl:2.1.2'
 
     // TEST: General
     testCompile 'junit:junit:4.12'

@@ -11,7 +11,7 @@
 
     <!-- Global elements !-->
     <xs:element name="notationLibrary" type="rm:notationLibraryPersist"/>
-    <xs:element name="composition" type="rm:touchPersist"/>
+    <xs:element name="composition" type="rm:compositionPersist"/>
 
     <!-- Types !-->
 
@@ -128,20 +128,20 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="touchPersist">
+    <xs:complexType name="compositionPersist">
         <xs:sequence>
             <xs:element name="documentVersion" type="rm:documentVersionPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="touchChecking" type="rm:touchCheckingPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="checkingType" type="rm:checkingTypePersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsPersist" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="notation" type="rm:touchNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="notation" type="rm:compositionNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyPersist" minOccurs="0" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="definition" type="rm:definitionPersist" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="cells" type="rm:touchCellsPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="cells" type="rm:compositionCellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startChange" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startRow" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startStroke" type="rm:strokePersist" minOccurs="1" maxOccurs="1"/>
@@ -154,7 +154,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="touchNotationPersist">
+    <xs:complexType name="compositionNotationPersist">
         <xs:complexContent>
             <xs:extension base="rm:baseNotationPersist">
                 <xs:sequence>
@@ -176,7 +176,7 @@
     </xs:complexType>
 
 
-    <xs:simpleType name="touchCheckingPersist">
+    <xs:simpleType name="checkingTypePersist">
         <xs:restriction base="xs:string">
             <xs:enumeration value="COURSE_BASED" />
             <xs:enumeration value="LEAD_BASED" />
@@ -190,15 +190,15 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="touchCellsPersist">
+    <xs:complexType name="compositionCellsPersist">
         <xs:sequence>
-            <xs:element name="cell" type="rm:touchCellPersist" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="cell" type="rm:compositionCellPersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="rows" type="xs:int" use="required"/>
         <xs:attribute name="columns" type="xs:int" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="touchCellPersist">
+    <xs:complexType name="compositionCellPersist">
         <xs:attribute name="row" type="xs:int" use="required"/>
         <xs:attribute name="column" type="xs:int" use="required"/>
         <xs:attribute name="characters" type="xs:string" use="required"/>
@@ -206,7 +206,7 @@
 
     <xs:complexType name="definitionPersist">
         <xs:complexContent>
-            <xs:extension base="rm:touchCellPersist">
+            <xs:extension base="rm:compositionCellPersist">
                 <xs:attribute name="shorthand" type="xs:string" use="required"/>
             </xs:extension>
         </xs:complexContent>

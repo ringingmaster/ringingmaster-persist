@@ -1,10 +1,10 @@
 package org.ringingmaster.persist;
 
+import org.ringingmaster.persist.generated.v1.CompositionPersist;
 import org.ringingmaster.persist.generated.v1.DocumentVersionPersist;
 import org.ringingmaster.persist.generated.v1.LibraryUsagePersist;
 import org.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import org.ringingmaster.persist.generated.v1.ObjectFactory;
-import org.ringingmaster.persist.generated.v1.TouchPersist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,11 +119,11 @@ public class DocumentPersist {
 	}
 
 
-	public void writeTouch(TouchPersist touch, Path path)  throws IOException, JAXBException {
-		checkNotNull(touch);
+	public void writeComposition(CompositionPersist composition, Path path)  throws IOException, JAXBException {
+		checkNotNull(composition);
 		checkNotNull(path);
 
-		touch.setDocumentVersion(buildCurrentVersion());
+		composition.setDocumentVersion(buildCurrentVersion());
 
 		path = path.toAbsolutePath().normalize();
 
@@ -137,7 +137,7 @@ public class DocumentPersist {
 			final Marshaller m = jc.createMarshaller();
 			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
 
-			m.marshal(objectFactory.createTouch(touch), outputStream);
+			m.marshal(objectFactory.createComposition(composition), outputStream);
 
 
 			outputStream.flush();
@@ -158,10 +158,10 @@ public class DocumentPersist {
 
 	}
 
-	public TouchPersist readTouch(Path path) {
+	public CompositionPersist readComposition(Path path) {
 		path = path.toAbsolutePath().normalize();
 
-		TouchPersist touch = null;
+		CompositionPersist compositionPersist = null;
 
 		InputStream inputStream = null;
 		try {
@@ -171,8 +171,8 @@ public class DocumentPersist {
 			final JAXBContext jc = JAXBContext.newInstance( XML_BASE_PACKAGE);
 			final Unmarshaller unmarshaller = jc.createUnmarshaller();
 			@SuppressWarnings("unchecked")
-			JAXBElement<TouchPersist> notationLibrary = (JAXBElement<TouchPersist>) unmarshaller.unmarshal(inputStream);
-			touch = notationLibrary.getValue();
+			JAXBElement<CompositionPersist> notationLibrary = (JAXBElement<CompositionPersist>) unmarshaller.unmarshal(inputStream);
+			compositionPersist = notationLibrary.getValue();
 		} catch (final NoSuchFileException e) {
 			throw new RuntimeException("Cant find path [" + path.toString() + "]", e);
 		} catch (final IOException e) {
@@ -190,7 +190,7 @@ public class DocumentPersist {
 			}
 		}
 
-		return touch;
+		return compositionPersist§;
 	}
 
 	private DocumentVersionPersist buildCurrentVersion() {

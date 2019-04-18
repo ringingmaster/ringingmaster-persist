@@ -1,15 +1,15 @@
 package org.ringingmaster.persist;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.ringingmaster.persist.generated.v1.CheckingTypePersist;
+import org.ringingmaster.persist.generated.v1.CompositionNotationPersist;
+import org.ringingmaster.persist.generated.v1.CompositionPersist;
 import org.ringingmaster.persist.generated.v1.DefinitionPersist;
 import org.ringingmaster.persist.generated.v1.LibraryNotationPersist;
 import org.ringingmaster.persist.generated.v1.NotationKeyPersist;
 import org.ringingmaster.persist.generated.v1.NotationLibraryPersist;
 import org.ringingmaster.persist.generated.v1.ObjectFactory;
-import org.ringingmaster.persist.generated.v1.TouchCheckingPersist;
-import org.ringingmaster.persist.generated.v1.TouchNotationPersist;
-import org.ringingmaster.persist.generated.v1.TouchPersist;
-import org.junit.Before;
-import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -94,54 +94,54 @@ public class DocumentPersistTest {
 	}
 
 	@Test
-	public void canSerialiseTouch() throws IOException, JAXBException {
+	public void canSerialiseComposition() throws IOException, JAXBException {
 
-		TouchPersist touch = new TouchPersist();
-		touch.setTitle("Touch Title");
-		touch.setAuthor("Stephen");
-		touch.setNumberOfBells(8);
-		touch.setTouchChecking(TouchCheckingPersist.COURSE_BASED);
-		touch.setCallFrom(4);
+		CompositionPersist composition = new CompositionPersist();
+		composition.setTitle("Composition Title");
+		composition.setAuthor("Stephen");
+		composition.setNumberOfBells(8);
+		composition.setCheckingType(CheckingTypePersist.COURSE_BASED);
+		composition.setCallFrom(4);
 
 		NotationKeyPersist notationKeyPersist = new ObjectFactory().createNotationKeyPersist();
 		notationKeyPersist.setName("TEST 2 Royal");
 		notationKeyPersist.setNumberOfWorkingBells(8);
-		touch.setNonSplicedActiveNotation(notationKeyPersist);
-		touch.setSpliced(true);
-		touch.setPlainLeadToken("p");
+		composition.setNonSplicedActiveNotation(notationKeyPersist);
+		composition.setSpliced(true);
+		composition.setPlainLeadToken("p");
 
 		DefinitionPersist definition = new ObjectFactory().createDefinitionPersist();
 		definition.setShorthand("x*");
 		definition.setCharacters("psp");
-		touch.getDefinition().add(definition);
+		composition.getDefinition().add(definition);
 
-		TouchNotationPersist notation1 = new TouchNotationPersist();
+		CompositionNotationPersist notation1 = new CompositionNotationPersist();
 		notation1.setName("TEST");
 		notation1.setNumberOfWorkingBells(8);
 		notation1.setNotation("12.34");
 		notation1.setNotation2("-");
 		notation1.setFoldedPalindrome(false);
 
-		touch.getNotation().add(notation1);
+		composition.getNotation().add(notation1);
 
-		TouchNotationPersist notation2 = new TouchNotationPersist();
+		CompositionNotationPersist notation2 = new CompositionNotationPersist();
 		notation2.setName("TEST 2");
 		notation2.setNumberOfWorkingBells(10);
 		notation2.setNotation("12.34");
 		notation2.setNotation2("-");
 		notation2.setFoldedPalindrome(false);
 
-		touch.getNotation().add(notation2);
+		composition.getNotation().add(notation2);
 
 
 		Path path = BASE_DIR.resolve("composition.xml");
-		new DocumentPersist().writeTouch(touch, path);
-		TouchPersist result = new DocumentPersist().readTouch(path);
+		new DocumentPersist().writeComposition(composition, path);
+		CompositionPersist result = new DocumentPersist().readComposition(path);
 
-		assertEquals("Touch Title", result.getTitle());
+		assertEquals("Composition Title", result.getTitle());
 		assertEquals("Stephen", result.getAuthor());
 		assertEquals(8, result.getNumberOfBells());
-		assertEquals(TouchCheckingPersist.COURSE_BASED, result.getTouchChecking());
+		assertEquals(CheckingTypePersist.COURSE_BASED, result.getCheckingType());
 		assertEquals(4, result.getCallFrom());
 		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation().getName());
 		assertEquals(true, result.isSpliced());
@@ -151,7 +151,7 @@ public class DocumentPersistTest {
 		assertEquals("psp", result.getDefinition().get(0).getCharacters());
 
 		assertEquals(2, result.getNotation().size());
-		TouchNotationPersist persistableNotationResult = result.getNotation().get(0);
+		CompositionNotationPersist persistableNotationResult = result.getNotation().get(0);
 		assertEquals(8, persistableNotationResult.getNumberOfWorkingBells());
 		assertEquals("12.34", persistableNotationResult.getNotation());
 		assertEquals("-", persistableNotationResult.getNotation2());

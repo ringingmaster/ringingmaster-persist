@@ -11,7 +11,7 @@
 
     <!-- Global elements !-->
     <xs:element name="notationLibrary" type="rm:notationLibraryPersist"/>
-    <xs:element name="touch" type="rm:touchPersist"/>
+    <xs:element name="composition" type="rm:touchPersist"/>
 
     <!-- Types !-->
 

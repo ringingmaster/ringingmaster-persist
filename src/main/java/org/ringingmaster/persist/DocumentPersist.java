@@ -176,9 +176,9 @@ public class DocumentPersist {
 		} catch (final NoSuchFileException e) {
 			throw new RuntimeException("Cant find path [" + path.toString() + "]", e);
 		} catch (final IOException e) {
-			throw new RuntimeException("Exception deserializing touch", e);
+			throw new RuntimeException("Exception deserializing composition", e);
 		} catch (final JAXBException e) {
-			throw new RuntimeException("Exception unmarshalling touch", e);
+			throw new RuntimeException("Exception unmarshalling composition", e);
 		}
 		finally {
 			try {

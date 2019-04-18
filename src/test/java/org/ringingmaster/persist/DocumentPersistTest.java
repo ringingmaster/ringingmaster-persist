@@ -134,7 +134,7 @@ public class DocumentPersistTest {
 		touch.getNotation().add(notation2);
 
 
-		Path path = BASE_DIR.resolve("touch.xml");
+		Path path = BASE_DIR.resolve("composition.xml");
 		new DocumentPersist().writeTouch(touch, path);
 		TouchPersist result = new DocumentPersist().readTouch(path);
 

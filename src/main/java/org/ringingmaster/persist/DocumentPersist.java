@@ -190,7 +190,7 @@ public class DocumentPersist {
 			}
 		}
 
-		return compositionPersist§;
+		return compositionPersist;
 	}
 
 	private DocumentVersionPersist buildCurrentVersion() {

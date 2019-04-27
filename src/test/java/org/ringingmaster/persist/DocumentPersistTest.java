@@ -2,7 +2,7 @@ package org.ringingmaster.persist;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ringingmaster.persist.generated.v1.CheckingTypePersist;
+import org.ringingmaster.persist.generated.v1.CompositionTypePersist;
 import org.ringingmaster.persist.generated.v1.CompositionNotationPersist;
 import org.ringingmaster.persist.generated.v1.CompositionPersist;
 import org.ringingmaster.persist.generated.v1.DefinitionPersist;
@@ -100,8 +100,9 @@ public class DocumentPersistTest {
 		composition.setTitle("Composition Title");
 		composition.setAuthor("Stephen");
 		composition.setNumberOfBells(8);
-		composition.setCheckingType(CheckingTypePersist.COURSE_BASED);
+		composition.setCompositionType(CompositionTypePersist.COURSE_BASED);
 		composition.setCallFrom(4);
+		composition.setStartRow(2);
 
 		NotationKeyPersist notationKeyPersist = new ObjectFactory().createNotationKeyPersist();
 		notationKeyPersist.setName("TEST 2 Royal");
@@ -141,7 +142,7 @@ public class DocumentPersistTest {
 		assertEquals("Composition Title", result.getTitle());
 		assertEquals("Stephen", result.getAuthor());
 		assertEquals(8, result.getNumberOfBells());
-		assertEquals(CheckingTypePersist.COURSE_BASED, result.getCheckingType());
+		assertEquals(CompositionTypePersist.COURSE_BASED, result.getCompositionType());
 		assertEquals(4, result.getCallFrom());
 		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation().getName());
 		assertEquals(true, result.isSpliced());

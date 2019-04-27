@@ -134,7 +134,7 @@
             <xs:element name="numberOfBells" type="rm:numberOfBellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="checkingType" type="rm:checkingTypePersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="compositionType" type="rm:compositionTypePersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="spliced" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="callFrom" type="rm:bellsPersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="notation" type="rm:compositionNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
@@ -176,7 +176,7 @@
     </xs:complexType>
 
 
-    <xs:simpleType name="checkingTypePersist">
+    <xs:simpleType name="compositionTypePersist">
         <xs:restriction base="xs:string">
             <xs:enumeration value="COURSE_BASED" />
             <xs:enumeration value="LEAD_BASED" />

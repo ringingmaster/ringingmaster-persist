@@ -3,7 +3,7 @@ package org.ringingmaster.persist;
 /**
  * TODO Comments
  *
- * @author Lake
+ * @author Steve Lake
  */
 public enum NotationLibraryUsage {
 

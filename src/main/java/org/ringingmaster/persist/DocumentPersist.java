@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * This class handle's the document marshalling. ot the conversion to the domain objects.
  *
- * @author Lake
+ * @author Steve Lake
  */
 public class DocumentPersist {
 

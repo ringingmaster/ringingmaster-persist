@@ -140,8 +140,8 @@
             <xs:element name="notation" type="rm:compositionNotationPersist" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="nonSplicedActiveNotation" type="rm:notationKeyPersist" minOccurs="0" maxOccurs="1"/>
             <xs:element name="plainLeadToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="definition" type="rm:definitionPersist" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="cells" type="rm:compositionCellsPersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="compositionTable" type="rm:cellsTablePersist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="definitionTable" type="rm:cellsTablePersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startChange" type="xs:string" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startRow" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startStroke" type="rm:strokePersist" minOccurs="1" maxOccurs="1"/>
@@ -190,26 +190,18 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="compositionCellsPersist">
+    <xs:complexType name="cellsTablePersist">
         <xs:sequence>
-            <xs:element name="cell" type="rm:compositionCellPersist" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="cell" type="rm:cellTablePersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="rows" type="xs:int" use="required"/>
         <xs:attribute name="columns" type="xs:int" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="compositionCellPersist">
+    <xs:complexType name="cellTablePersist">
         <xs:attribute name="row" type="xs:int" use="required"/>
         <xs:attribute name="column" type="xs:int" use="required"/>
         <xs:attribute name="characters" type="xs:string" use="required"/>
-    </xs:complexType>
-
-    <xs:complexType name="definitionPersist">
-        <xs:complexContent>
-            <xs:extension base="rm:compositionCellPersist">
-                <xs:attribute name="shorthand" type="xs:string" use="required"/>
-            </xs:extension>
-        </xs:complexContent>
     </xs:complexType>
 
 </xs:schema>

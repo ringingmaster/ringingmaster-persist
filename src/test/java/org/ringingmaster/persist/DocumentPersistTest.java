@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.ringingmaster.persist.generated.v1.CompositionTypePersist;
 import org.ringingmaster.persist.generated.v1.CompositionNotationPersist;
 import org.ringingmaster.persist.generated.v1.CompositionPersist;
-import org.ringingmaster.persist.generated.v1.DefinitionPersist;
 import org.ringingmaster.persist.generated.v1.LibraryNotationPersist;
 import org.ringingmaster.persist.generated.v1.NotationKeyPersist;
 import org.ringingmaster.persist.generated.v1.NotationLibraryPersist;
@@ -111,11 +110,6 @@ public class DocumentPersistTest {
 		composition.setSpliced(true);
 		composition.setPlainLeadToken("p");
 
-		DefinitionPersist definition = new ObjectFactory().createDefinitionPersist();
-		definition.setShorthand("x*");
-		definition.setCharacters("psp");
-		composition.getDefinition().add(definition);
-
 		CompositionNotationPersist notation1 = new CompositionNotationPersist();
 		notation1.setName("TEST");
 		notation1.setNumberOfWorkingBells(8);
@@ -147,9 +141,6 @@ public class DocumentPersistTest {
 		assertEquals("TEST 2 Royal", result.getNonSplicedActiveNotation().getName());
 		assertEquals(true, result.isSpliced());
 		assertEquals("p", result.getPlainLeadToken());
-		assertEquals(1, result.getDefinition().size());
-		assertEquals("x*", result.getDefinition().get(0).getShorthand());
-		assertEquals("psp", result.getDefinition().get(0).getCharacters());
 
 		assertEquals(2, result.getNotation().size());
 		CompositionNotationPersist persistableNotationResult = result.getNotation().get(0);
@@ -158,6 +149,9 @@ public class DocumentPersistTest {
 		assertEquals("-", persistableNotationResult.getNotation2());
 		assertEquals(false, persistableNotationResult.isFoldedPalindrome());
 		assertEquals("TEST", persistableNotationResult.getName());
+
+
+		//TODO we need testing of the composition cells and definition cells.
 
 
 	}

@@ -192,7 +192,7 @@
 
     <xs:complexType name="cellsTablePersist">
         <xs:sequence>
-            <xs:element name="cell" type="rm:cellTablePersist" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="cells" type="rm:cellTablePersist" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="rows" type="xs:int" use="required"/>
         <xs:attribute name="columns" type="xs:int" use="required"/>

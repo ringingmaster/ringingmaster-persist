@@ -129,7 +129,7 @@ public class DocumentPersist {
 
 		OutputStream outputStream = null;
 		try {
-			log.info("Writing the Notation library to [" + path + "]");
+			log.info("Writing the Composition to [" + path + "]");
 
 			outputStream = Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING );
 

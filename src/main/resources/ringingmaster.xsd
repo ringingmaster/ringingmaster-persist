@@ -162,6 +162,8 @@
                         <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                         <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:choice>
+                    <xs:element name="callInitiationRows" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="callingPositions" type="rm:callingPositionPersist" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
                 <xs:attribute name="splicedIdentifier" type="xs:string" use="optional"/>
             </xs:extension>
@@ -175,6 +177,11 @@
         <xs:attribute name="default" type="xs:boolean" use="required"/>
     </xs:complexType>
 
+    <xs:complexType name="callingPositionPersist">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="callInitiationRow" type="xs:int" use="required"/>
+        <xs:attribute name="leadOfTenor" type="xs:int" use="required"/>
+    </xs:complexType>
 
     <xs:simpleType name="compositionTypePersist">
         <xs:restriction base="xs:string">

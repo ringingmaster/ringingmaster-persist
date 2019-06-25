@@ -149,7 +149,7 @@
             <xs:element name="terminationMaxRows" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="terminationMaxLeads" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="terminationMaxParts" type="xs:int" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="terminationMaxCircularity" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="terminationMaxPartCircularity" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="terminationChange" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>

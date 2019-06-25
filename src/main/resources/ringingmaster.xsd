@@ -162,8 +162,8 @@
                         <xs:element name="useCannedCalls" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                         <xs:element name="call" type="rm:callPersist" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:choice>
-                    <xs:element name="callInitiationRows" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element name="callingPositions" type="rm:callingPositionPersist" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="callInitiationRow" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="callingPosition" type="rm:callingPositionPersist" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
                 <xs:attribute name="splicedIdentifier" type="xs:string" use="optional"/>
             </xs:extension>

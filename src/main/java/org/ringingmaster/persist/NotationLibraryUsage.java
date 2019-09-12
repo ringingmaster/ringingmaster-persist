@@ -7,6 +7,6 @@ package org.ringingmaster.persist;
  */
 public enum NotationLibraryUsage {
 
-	CC_LIBRARY,
-	USER_LIBRARY
+    CC_LIBRARY,
+    USER_LIBRARY
 }

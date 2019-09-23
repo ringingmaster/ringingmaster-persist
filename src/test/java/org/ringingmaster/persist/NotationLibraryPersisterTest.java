@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author Steve Lake
  */
-public class NotationLibraryPersistTest {
+public class NotationLibraryPersisterTest {
 
     private static final Path BASE_DIR = Paths.get("src", "test", "dump");
 
@@ -70,8 +70,8 @@ public class NotationLibraryPersistTest {
 
 
         Path path = BASE_DIR.resolve("library.xml");
-        new NotationLibraryPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
-        org.ringingmaster.persist.generated.v1.NotationLibraryPersist result = new NotationLibraryPersist().readNotationLibrary(path);
+        new NotationLibraryPersister().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
+        org.ringingmaster.persist.generated.v1.NotationLibraryPersist result = new NotationLibraryPersister().readNotationLibrary(path);
 
         assertEquals(1, result.getNotation().size());
 
@@ -91,8 +91,8 @@ public class NotationLibraryPersistTest {
 
         org.ringingmaster.persist.generated.v1.NotationLibraryPersist notationLibrary = new org.ringingmaster.persist.generated.v1.NotationLibraryPersist();
         Path path = BASE_DIR.resolve("emptyLibrary.xml");
-        new NotationLibraryPersist().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
-        org.ringingmaster.persist.generated.v1.NotationLibraryPersist result = new NotationLibraryPersist().readNotationLibrary(path);
+        new NotationLibraryPersister().writeNotationLibrary(notationLibrary, path, NotationLibraryUsage.CC_LIBRARY);
+        org.ringingmaster.persist.generated.v1.NotationLibraryPersist result = new NotationLibraryPersister().readNotationLibrary(path);
 
         assertEquals(0, result.getNotation().size());
     }
@@ -185,8 +185,8 @@ public class NotationLibraryPersistTest {
 
          //*** WRITE AND READ ***
         Path path = BASE_DIR.resolve("NotationLibraryPersistTest-test-composition.xml");
-        new NotationLibraryPersist().writeComposition(compositionPersistOriginal, path);
-        CompositionPersist compositionPersistResult = new NotationLibraryPersist().readComposition(path);
+        new NotationLibraryPersister().writeComposition(compositionPersistOriginal, path);
+        CompositionPersist compositionPersistResult = new NotationLibraryPersister().readComposition(path);
 
 
         //*** ASSERT ***

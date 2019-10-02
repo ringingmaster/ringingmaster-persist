@@ -141,11 +141,11 @@
             <xs:element name="startRow" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startStroke" type="rm:strokePersist" minOccurs="1" maxOccurs="1"/>
             <xs:element name="startNotation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="terminationChange" type="rm:terminationChangePersist" minOccurs="0" maxOccurs="1"/>
             <xs:element name="terminationMaxRows" type="xs:int" minOccurs="1" maxOccurs="1"/>
             <xs:element name="terminationMaxLeads" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="terminationMaxParts" type="xs:int" minOccurs="0" maxOccurs="1"/>
             <xs:element name="terminationMaxPartCircularity" type="xs:int" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="terminationChange" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -203,6 +203,19 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="BACKSTROKE"/>
             <xs:enumeration value="HANDSTROKE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="terminationChangePersist">
+        <xs:attribute name="change" type="xs:string" use="required"/>
+        <xs:attribute name="location" type="rm:terminationChangeLocationPersist" use="required"/>
+    </xs:complexType>
+
+
+    <xs:simpleType name="terminationChangeLocationPersist">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ANYWHERE"/>
+            <xs:enumeration value="LEAD_END"/>
         </xs:restriction>
     </xs:simpleType>
 

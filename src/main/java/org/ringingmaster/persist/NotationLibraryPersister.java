@@ -111,7 +111,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
     }
 
 
-    public void writeComposition(CompositionPersist composition, Path path) throws IOException, JAXBException {
+    public void writeComposition(CompositionPersist composition, Path path) throws IOException {
         checkNotNull(composition);
         checkNotNull(path);
 
@@ -137,6 +137,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
             // Also to Std out for debug.
             //m.marshal(notationLibrary, System.out);
 
+        } catch (PropertyException e) {
+            log.error("TODO", e);
+        } catch (JAXBException e) {
+            log.error("TODO", e);
         } finally {
             try {
                 if (outputStream != null) {

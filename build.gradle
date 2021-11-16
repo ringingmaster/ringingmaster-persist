@@ -18,25 +18,25 @@ configurations {
 
 dependencies {
     // General
-    compile 'com.google.guava:guava:27.1-jre'
+    implementation 'com.google.guava:guava:27.1-jre'
 
     // Logging
-    compile 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
 
     jaxb 'org.glassfish.jaxb:jaxb-xjc:2.2.11'
     jaxb 'org.glassfish.jaxb:jaxb-runtime:2.2.11'
     jaxb 'javax.activation:activation:1.1.1'
 
-    compile 'javax.xml.bind:jaxb-api:2.1'
-    compile 'com.sun.xml.bind:jaxb-impl:2.1.2'
+    implementation 'javax.xml.bind:jaxb-api:2.1'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.1.2'
 
     // TEST: General
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.8.47'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
 
     // TEST: Logging
-    testRuntime 'org.apache.logging.log4j:log4j-core:2.8.2'
-    testRuntime 'org.apache.logging.log4j:log4j-slf4j-impl:2.8.2'
+    testRuntimeOnly 'org.apache.logging.log4j:log4j-core:2.8.2'
+    testRuntimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.8.2'
 }
 
 jar {
